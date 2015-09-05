@@ -100,7 +100,7 @@ end %>
   <%= link_to_new_subtask(@issue) if User.current.allowed_to?(:manage_subtasks, @project) %>
 </div>
 <p><strong><%=l(:label_subtask_plural)%></strong></p>
-<%= render_descendants_tree(@issue) unless @issue.leaf? %>
+<%= render_descendants_tree(@issue,:display_desc_in_tree => true) unless @issue.leaf? %>
 </div>
 <% end %>
 

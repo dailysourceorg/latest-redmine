@@ -85,7 +85,8 @@ module ApplicationHelper
                 :class => issue.css_classes, :title => title)
     s << h(": #{subject}") if subject
     s = h("#{issue.project} - ") + s if options[:project]
-    s << "<br/><div class='desc'>#{ best_in_place issue, :description, :as => :textarea, :ok_button => 'Save', :cancel_button => 'Cancel'  }</div>".html_safe
+    s << "<br/><div class='desc'>#{ best_in_place issue, :description, :as => :textarea, :ok_button => 'Save', :cancel_button => 'Cancel'  }</div>".html_safe if options[:display_desc_in_tree]
+    s
   end
 
   # Generates a link to an attachment.
