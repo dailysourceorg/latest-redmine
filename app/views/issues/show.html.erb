@@ -99,7 +99,7 @@ end %>
 <div class="contextual">
   <%= link_to_new_subtask(@issue) if User.current.allowed_to?(:manage_subtasks, @project) %>
 </div>
-<p><strong><%=l(:label_subtask_plural)%></strong></p>
+<p><strong><%=l(:label_subtask_plural)%></strong> &nbsp;<a href="javascript: void(0)" class="display_hide_toggle">Display All</a></p>
 <%= render_descendants_tree(@issue,:display_desc_in_tree => true) unless @issue.leaf? %>
 </div>
 <% end %>
@@ -173,11 +173,46 @@ end %>
       e.stopPropagation();
     })
 
+    $('.arrow').click(function(e){
+      e.stopPropagation();
+      if ($(this).text() == '⇒') {
+        $(this).parent().find('.desc').show();
+        $(this).html("⇓")
+      }
+      else {
+        $(this).parent().find('.desc').hide();
+        $(this).html("⇒")
+      }
+
+    })
+
+    $(".display_hide_toggle").click(function(){
+      if ($(this).text() == "Display All") {
+        $(this).html("Hide All")
+        $('.desc').show();
+        $('.arrow').html("⇓")
+      }
+      else {
+        $(this).html("Display All")
+        $('.desc').hide();
+        $('.arrow').html("⇒")
+      }
+    })
+
   });
 </script>
 
 <style type="text/css">
   .desc {
     margin: 2px 0 2px 55px;
+    display: none;
   }
+
+  .arrow {
+    font-weight: bolder;
+    cursor: pointer;
+    color:blue;
+    margin-left:5px
+  }
+
 </style>
