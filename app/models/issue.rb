@@ -132,6 +132,16 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def parent_ids
+    parent = self.parent
+    parent_ids = []
+    while(parent)
+      parent_ids << parent.id
+      parent = parent.parent
+    end
+    parent_ids
+  end
+
   # Returns true if usr or current user is allowed to view the issue
   def visible?(usr=nil)
     (usr || User.current).allowed_to?(:view_issues, self.project) do |role, user|
@@ -1650,4 +1660,5 @@ class Issue < ActiveRecord::Base
       self.done_ratio ||= 0
     end
   end
+
 end

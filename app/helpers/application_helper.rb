@@ -81,8 +81,8 @@ module ApplicationHelper
       end
     end
     only_path = options[:only_path].nil? ? true : options[:only_path]
-    s = link_to(text, issue_url(issue, :only_path => only_path),
-                :class => issue.css_classes, :title => title)
+    s = "#{"<span class='#{issue.parent_ids.collect{|id| "belongs_to_#{id}"}.join(" ") } issue_triangle shown' issue_id=#{issue.id}>⇓</span>" if options[:display_desc_in_tree]} #{link_to(text, issue_url(issue, :only_path => only_path),
+                :class => issue.css_classes, :title => title)}".html_safe
     s << h(": #{subject}") if subject
     s = h("#{issue.project} - ") + s if options[:project]
     s << "<span class='arrow'>&rArr;</span> <br/><div class='desc'>#{ best_in_place issue, :description, :as => :textarea, :ok_button => 'Save', :cancel_button => 'Cancel'  }</div>".html_safe if options[:display_desc_in_tree]

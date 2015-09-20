@@ -99,7 +99,7 @@ end %>
 <div class="contextual">
   <%= link_to_new_subtask(@issue) if User.current.allowed_to?(:manage_subtasks, @project) %>
 </div>
-<p><strong><%=l(:label_subtask_plural)%></strong> &nbsp;<a href="javascript: void(0)" class="display_hide_toggle">Display All</a></p>
+<p><strong><%=l(:label_subtask_plural)%></strong> &nbsp;<a href="javascript: void(0)" class="display_hide_toggle">Show all descriptions</a> &nbsp;<a href="javascript: void(0)" class="subtask_display_hide_toggle">Hide all subtasks</a></p>
 <%= render_descendants_tree(@issue,:display_desc_in_tree => true) unless @issue.leaf? %>
 </div>
 <% end %>
@@ -187,17 +187,45 @@ end %>
     })
 
     $(".display_hide_toggle").click(function(){
-      if ($(this).text() == "Display All") {
-        $(this).html("Hide All")
+      if ($(this).text() == "Show all descriptions") {
+        $(this).html("Hide all descriptions")
         $('.desc').show();
         $('.arrow').html("⇓")
       }
       else {
-        $(this).html("Display All")
+        $(this).html("Show all descriptions")
         $('.desc').hide();
         $('.arrow').html("⇒")
       }
     })
+
+    $(".subtask_display_hide_toggle").click(function(){
+      if ($(this).text() == "Show all subtasks") {
+        $(this).html("Hide all subtasks")
+        $("tr.idnt").show().find("span.issue_triangle").addClass("shown").html("⇓")
+      }
+      else {
+        $(this).html("Show all subtasks")
+        $("tr.idnt").hide().find("span.issue_triangle").removeClass("shown").html("⇒")
+      }
+    })
+
+    $(".issue_triangle").css("cursor","pointer").click(function(e) {
+      e.stopPropagation();
+      var clicked_issue_id = $(this).attr("issue_id")
+      if ($(this).hasClass("shown")){
+        $(this).removeClass("shown").html("⇒")
+        $(".belongs_to_"+clicked_issue_id).html("⇒").closest("tr").hide()
+      }
+      else
+      {
+        $(this).addClass("shown").html("⇓")
+        $(".belongs_to_"+clicked_issue_id).html("⇓").closest("tr").show()
+      }
+
+
+    })
+
 
   });
 </script>
