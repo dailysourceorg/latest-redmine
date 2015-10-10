@@ -81,7 +81,7 @@ module ApplicationHelper
       end
     end
     only_path = options[:only_path].nil? ? true : options[:only_path]
-    s = "#{"<span class='#{issue.parent_ids.collect{|id| "belongs_to_#{id}"}.join(" ") } issue_triangle shown' issue_id=#{issue.id}>⇓</span>" if options[:display_desc_in_tree]} #{link_to(text, issue_url(issue, :only_path => only_path),
+    s = "#{"<span updated_on='#{issue.updated_on.strftime("%m/%d/%Y")}' status='#{issue.status.try(:name)}' class='#{issue.parent_ids.collect{|id| "belongs_to_#{id}"}.join(" ") } issue_triangle shown' issue_id=#{issue.id}>⇓</span>" if options[:display_desc_in_tree]} #{link_to(text, issue_url(issue, :only_path => only_path),
                 :class => issue.css_classes, :title => title)}".html_safe
     s << h(": #{subject}") if subject
     s = h("#{issue.project} - ") + s if options[:project]
