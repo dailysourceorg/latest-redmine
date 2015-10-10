@@ -1,0 +1,43 @@
+# English strings go here for Rails i18n
+en:
+  ev_document_added: Document added.
+  ev_file_added: File added.
+  ev_issue_added: Issue added.
+  ev_issue_updated: Issue updated.
+  ev_issue_note_added: Issue notes added.
+  ev_issue_status_updated: Issue status changed.
+  ev_issue_priority_updated: Issue priority changed.
+  ev_message_posted: Message posted.
+  ev_news_added: News added.
+  ev_news_comment_added: News comment added
+  ev_wiki_content_added: Wiki added.
+  ev_wiki_content_updated: Wiki updated.
+  ev_added: added.
+  ev_updated: updated.
+  ev_note_added: note added.
+  ev_status_updated: status changed.
+  ev_priority_updated: priority changed.
+
+  enable_event_notifications_settings: Enable Event notification plugin.
+  enable_event_notifications_settings_description: If true; emails are sent to receipients on creation or updation of events checked by user.
+  event_notifications_with_author: Notification Options
+  event_notifications_with_author_default: Default <redmine@example.net>
+  event_notifications_with_author_author: Author Name <author.email@example.net>
+  event_notifications_with_author_authorname: Author Name <redmine@example.net>
+
+  button_edit_events: Edit events
+
+  label_view_watchers_list: View auto watchers
+  label_issue_automatic_watchers: Automatic watchers
+  notice_failed_to_load_watchers: Failed to load watchers
+  notice_issue_not_found: Issue not found
+
+  enable_notification_for_issue_attributes: Issue fields notifications
+  enable_notification_for_cf: Issue custom fields
+  enable_notification_for_project_issue_categories: Project Issue Categories
+  issue_fields_description: Check to enable notification for the issue fields.
+  label_cf_unchecked: unchecked
+  label_cf_checked: checked
+  label_cf_toggled_off: toggled No
+  label_cf_toggled_on: toggled Yes
+  label_notify: Email Notifications

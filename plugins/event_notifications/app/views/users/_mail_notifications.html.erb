@@ -1,0 +1,41 @@
+<p>
+<%= label_tag "user_mail_notification", l(:description_user_mail_notification), :class => "hidden-for-sighted" %>
+<%= select_tag(
+      'user[mail_notification]',
+      options_for_select(
+         user_mail_notification_options(@user), @user.mail_notification),
+      :onchange => 'if (this.value == "selected") {$("#notified-projects").show();} else {$("#notified-projects").hide();}'
+     ) %>
+</p>
+<%= content_tag 'div', :id => 'notified-projects', :style => (@user.mail_notification == 'selected' ? '' : 'display:none;') do %>
+  <%= render_project_nested_lists(@user.projects) do |project|
+
+        if Setting.plugin_event_notifications["enable_event_notifications"] == "on"
+          value =  {project.id => project.name}
+          html_opts = { :id => nil, :onchange => 'if (this.checked == true) {$( this ).parent().next().show();}
+                                        else {$( this ).parent().next().hide();}' }
+        else
+          value = project.id
+          html_opts = { :id => nil }
+        end
+        bool_val = @user.notified_projects_ids.include?(project.id)
+
+        content_tag('label', 
+          check_box_tag(
+            'user[notified_project_ids][]',
+             value,
+             bool_val,
+             html_opts
+             ) + ' ' + h(project.name)
+        ) +  render_project_events_lists(project, bool_val) 
+      end %>
+  <%= hidden_field_tag 'user[notified_project_ids][]', '' %>
+  <p><em class="info"><%= l(:text_user_mail_option) %></em></p>
+<% end %>
+
+<%= fields_for :pref, @user.pref do |pref_fields| %>
+<p>
+  <%= pref_fields.check_box :no_self_notified %>
+  <label for="pref_no_self_notified"><%= l(:label_user_mail_no_self_notified) %></label>
+</p>
+<% end %>
