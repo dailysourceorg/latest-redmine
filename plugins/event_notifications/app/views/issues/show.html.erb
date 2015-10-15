@@ -224,13 +224,13 @@
 
     $('.arrow').click(function (e) {
       e.stopPropagation();
-      if ($(this).text() == '⇒') {
+      if ($(this).hasClass("green_info")) {
         $(this).parent().find('.desc').show();
-        $(this).html("⇓")
+        $(this).removeClass("green_info").addClass("red_info")
       }
       else {
         $(this).parent().find('.desc').hide();
-        $(this).html("⇒")
+        $(this).removeClass("red_info").addClass("green_info")
       }
 
     })
@@ -239,12 +239,12 @@
       if ($(this).text() == "Show all descriptions") {
         $(this).html("Hide all descriptions")
         $('.desc').show();
-        $('.arrow').html("⇓")
+        $('.arrow').removeClass("green_info").addClass("red_info")
       }
       else {
         $(this).html("Show all descriptions")
         $('.desc').hide();
-        $('.arrow').html("⇒")
+        $('.arrow').removeClass("red_info").addClass("green_info")
       }
     })
 
@@ -355,10 +355,22 @@
   }
 
   .arrow {
-    font-weight: bolder;
     cursor: pointer;
-    color: blue;
-    margin-left: 5px
+    margin-left: 5px;
+    width : 10px;
+    height: 10px;
+  }
+
+  .red_info {
+    background: url("/images/red_icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .green_info {
+    background: url("/images/green_icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
 </style>
