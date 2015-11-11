@@ -3,13 +3,15 @@
 
 <%= form_for @ds_comment do |f|%>
 
-  <%= f.text_area :comment %>
+  <h2> Enter Comment :</h2>
+  <%= f.text_area :comment, :rows => "20", :style => "width:100%" %>
 
   <input type="hidden" value="<%= params[:issue_id]%>" name="ds_comment[issue_id]">
   <input type="hidden" value="<%= User.current.id %>" name="ds_comment[commented_by]">
   <input type="hidden" value="<%= params[:selected_text]%>" name="selected_text">
 
-  <input type="button" class ="btn_ds_comment_submit" value="Submit" >
+  <br/>
+  <input type="button" class ="btn_ds_comment_submit" value="Ok" style="width: 60px">
 
 <% end %>
 

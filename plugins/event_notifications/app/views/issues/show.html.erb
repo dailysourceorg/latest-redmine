@@ -377,6 +377,9 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+  .ds_comment {
+    background-color: whitesmoke
+  }
 
 </style>
 
@@ -394,10 +397,16 @@
       })
     })
 
+    function popupwindow(url, title, w, h) {
+      var left = (screen.width/2)-(w/2);
+      var top = (screen.height/2)-(h/2);
+      return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+    }
+
     $('.ds_description').mouseup(function() {
       var selected_text = getSelectedText()
       if (selected_text>''){
-        window.open('/ds_comments/new?selected_text='+selected_text+'&issue_id=<%=params[:id]%>','_blank','height=700,width=1024');
+        popupwindow('/ds_comments/new?selected_text='+selected_text+'&issue_id=<%=params[:id]%>','Enter New Comment','450','450');
       }
     });
 
