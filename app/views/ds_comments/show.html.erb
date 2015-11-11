@@ -1,0 +1,7 @@
+<% if @ds_comment %>
+<br/>
+  <div>
+    "<%= @ds_comment.comment %>" By <%= User.find_by_id(@ds_comment.commented_by).try(:name)%>- On <%= @ds_comment.created_at %>
+  </div>
+<br/>
+<% end %>

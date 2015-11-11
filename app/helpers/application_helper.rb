@@ -380,6 +380,8 @@ module ApplicationHelper
     s.html_safe
   end
 
+
+
   # Returns a string for users/groups option tags
   def principals_options_for_select(collection, selected=nil)
     s = ''
@@ -1333,4 +1335,22 @@ module ApplicationHelper
   def link_to_content_update(text, url_params = {}, html_options = {})
     link_to(text, url_params, html_options)
   end
+
+
+  def render_ds_comments(description)
+    showable_desciption = []
+    description.split(" ").each do |word|
+      if word.match(/{{#/).present?
+        word = word.gsub("{","").gsub("#","")
+        ds_comment = DsComment.find_by(:id => word.to_i)
+        showable_desciption << "<p class='ds_comment' ds_comment_id='#{ds_comment.try(:id)}'></p>"
+      else
+        showable_desciption << word
+      end
+    end
+    showable_desciption.join(" ").html_safe
+
+  end
+
+
 end

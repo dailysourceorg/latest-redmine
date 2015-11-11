@@ -85,8 +85,8 @@
 
         <p><strong><%= l(:field_description) %></strong></p>
 
-        <div class="wiki">
-          <%= textilizable @issue, :description, :attachments => @issue.attachments %>
+        <div class="wiki ds_description">
+          <%= render_ds_comments(textilizable(@issue, :description, :attachments => @issue.attachments)) %>
         </div>
       </div>
     <% end %>
@@ -332,6 +332,10 @@
       localStorage.setItem("select_status", $("#select_status").val());
       localStorage.setItem("select_second_status", $("#select_second_status").val());
       localStorage.setItem("datepicker", $("#datepicker").val());
+
+
+
+
     })
 
     var session = {select_status: localStorage.getItem("select_status"), select_second_status: localStorage.getItem("select_second_status"), datepicker: localStorage.getItem("datepicker")};
@@ -344,6 +348,7 @@
       }
       $("button.go_btn_filter").click()
     }
+
 
   });
 </script>
@@ -374,3 +379,37 @@
   }
 
 </style>
+
+<script type="application/javascript">
+  $(function(){
+
+    $("p.ds_comment").each(function(){
+      var ds_comment = $(this);
+      $.ajax({
+        url: "/ds_comments/" + ds_comment.attr('ds_comment_id'),
+        type: 'GET',
+        success: function(response){
+          ds_comment.html(response)
+        }
+      })
+    })
+
+    $('.ds_description').mouseup(function() {
+      var selected_text = getSelectedText()
+      if (selected_text>''){
+        window.open('/ds_comments/new?selected_text='+selected_text+'&issue_id=<%=params[:id]%>','_blank','height=700,width=1024');
+      }
+    });
+
+    function getSelectedText() {
+      if (window.getSelection) {
+        return window.getSelection().toString();
+      } else if (document.selection) {
+        return document.selection.createRange().text;
+      }
+      return '';
+    }
+
+  })
+</script>
+

@@ -17,6 +17,7 @@
 
 Rails.application.routes.draw do
   root :to => 'welcome#index', :as => 'home'
+  resources :ds_comments
 
   match 'login', :to => 'account#login', :as => 'signin', :via => [:get, :post]
   match 'logout', :to => 'account#logout', :as => 'signout', :via => [:get, :post]
