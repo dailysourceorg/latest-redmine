@@ -8,7 +8,7 @@
 
   <input type="hidden" value="<%= params[:issue_id]%>" name="ds_comment[issue_id]">
   <input type="hidden" value="<%= User.current.id %>" name="ds_comment[commented_by]">
-  <input type="hidden" value="<%= URI.unescape(params[:selected_text])%>" name="selected_text">
+  <input type="hidden" value="<%= URI.unescape(params[:selected_text]).gsub("\n","\r\n")%>" name="selected_text">
 
   <br/><br/>
   <div style="width: 100%;text-align: right">
