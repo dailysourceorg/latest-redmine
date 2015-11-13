@@ -78,7 +78,7 @@
   <% if @issue.description? || @issue.attachments.any? -%>
     <hr/>
     <% if @issue.description? %>
-      <div class="description">
+      <div class="description" title="To Enter a comment please select text with 30 characters at least">
         <div class="contextual">
           <%= link_to l(:button_quote), quoted_issue_path(@issue), :remote => true, :method => 'post', :class => 'icon icon-comment' if authorize_for('issues', 'edit') %>
         </div>
@@ -405,8 +405,8 @@
 
     $('.ds_description').mouseup(function() {
       var selected_text = getSelectedText()
-      if (selected_text>''){
-        popupwindow('/ds_comments/new?selected_text='+selected_text+'&issue_id=<%=params[:id]%>','Enter New Comment','450','450');
+      if (selected_text.length>20){
+        popupwindow(encodeURI('/ds_comments/new?selected_text='+encodeURIComponent(selected_text)+'&issue_id=<%=params[:id]%>'),'Enter New Comment','450','450');
       }
     });
 

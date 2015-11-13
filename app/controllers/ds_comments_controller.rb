@@ -15,8 +15,8 @@ class DsCommentsController < ApplicationController
     if ds_comment_params[:issue_id] && params[:selected_text].to_s > ""
       @issue = Issue.find(ds_comment_params[:issue_id])
       @ds_comment = DsComment.new(ds_comment_params)
-      if @ds_comment.save
-        @issue.update_attribute(:description,@issue.description.sub(params[:selected_text],"#{params[:selected_text]} {{##{@ds_comment.id}#}} "))
+      if @issue.description.include?(params[:selected_text].to_s)
+        @issue.update_attribute(:description,@issue.description.sub(params[:selected_text],"#{params[:selected_text]} {{##{@ds_comment.id}#}} ")) if @ds_comment.save
       end
     end
     render :text => ""

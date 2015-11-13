@@ -3,15 +3,18 @@
 
 <%= form_for @ds_comment do |f|%>
 
-  <h2> Enter Comment :</h2>
+  <h2> Enter Comment After :</h2> " <%= URI.unescape(params[:selected_text]) %> "
   <%= f.text_area :comment, :rows => "20", :style => "width:100%" %>
 
   <input type="hidden" value="<%= params[:issue_id]%>" name="ds_comment[issue_id]">
   <input type="hidden" value="<%= User.current.id %>" name="ds_comment[commented_by]">
-  <input type="hidden" value="<%= params[:selected_text]%>" name="selected_text">
+  <input type="hidden" value="<%= URI.unescape(params[:selected_text])%>" name="selected_text">
 
-  <br/>
-  <input type="button" class ="btn_ds_comment_submit" value="Ok" style="width: 60px">
+  <br/><br/>
+  <div style="width: 100%;text-align: right">
+    <input type="button" class ="btn_ds_comment_submit" value="Ok" style="width: 60px"> &nbsp;&nbsp;
+    <input type="button" onclick="javascript: window.close();" value="Cancel" style="width: 60px">
+  </div>
 
 <% end %>
 
@@ -24,7 +27,7 @@
       data: form.serialize(),
       success: function(response){
         window.opener.location.reload(true);
-        window.close()
+        window.close();
       }
     })
 
